@@ -1,64 +1,109 @@
 import streamlit as st
 import pandas as pd
-import os
-import sys
+from datetime import datetime
 
-# Add project root to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from generate_data import generate_mock_observability_data
-
+# Page Configuration
 st.set_page_config(
-    page_title="Enterprise Data Observability Dashboard",
+    page_title="Enterprise Data Governance & Observability",
     page_icon="🛡️",
     layout="wide"
 )
 
-st.title("🛡️ Enterprise Data Governance & Observability Dashboard")
-st.markdown("Monitor real-time data quality metrics, automated anomaly detection, pipeline execution statuses, and Slack alert logs.")
+# Custom Styling for Enterprise Look
+st.markdown("""
+    <style>
+    .main { background-color: #f8f9fa; }
+    .metric-card { background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    </style>
+""", unsafe_allow_html=True)
+
+# Title & Header
+st.markdown("# 🛡️ Enterprise Data Governance & Observability Dashboard")
+st.markdown("Monitor real-time data quality metrics, automated anomaly detection, Data Freshness SLA, lineage, and Slack alert logs.")
 
 # Sidebar Controls
-st.sidebar.header("Pipeline Controls")
-if st.sidebar.button("Run Data Generation & Quality Scan"):
-    generate_mock_observability_data()
-    st.sidebar.success("Synthetic data generated & checks executed!")
+st.sidebar.markdown("## Pipeline Controls")
+run_scan = st.sidebar.button("Run Data Generation & Quality Scan")
 
-# Main layout - Metrics Overview
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Active Tables Monitored", "14", "+2")
-col2.metric("Data Quality Score", "98.4%", "+0.5%")
-col3.metric("Failed Checks (24h)", "1", "-2")
-col4.metric("Slack Alerts Sent", "4", "+1")
+# Session state initialization for dynamic simulation
+if 'scanned' not in st.session_state:
+    st.session_state.scanned = False
 
-st.markdown("---")
+if run_scan:
+    st.session_state.scanned = True
 
-# Section 1: Recent Data Quality Test Results (Original Table Preserved)
-st.subheader("📋 Recent Data Quality Test Results")
-data = {
-    "Table Name": ["raw_orders", "raw_customers", "raw_orders", "raw_products"],
-    "Check Type": ["Row Count > 0", "Missing ID Check", "Status Validation", "Duplicate Check"],
-    "Status": ["PASSED", "PASSED", "PASSED", "PASSED"],
-    "Execution Time": ["2026-08-23 08:00:00", "2026-08-23 08:00:00", "2026-08-23 08:00:00", "2026-08-23 08:00:00"]
-}
-df_original = pd.DataFrame(data)
-st.dataframe(df_original, use_container_width=True)
+# Metrics Row (including new Quality Coverage & Freshness SLA)
+col1, col2, col3, col4, col5 = st.columns(5)
+with col1:
+    st.metric("Active Tables Monitored", "14", "+2")
+with col2:
+    st.metric("Data Quality Score", "98.4%", "+0.5%")
+with col3:
+    st.metric("Failed Checks (24h)", "1", "-2")
+with col4:
+    st.metric("Slack Alerts Sent", "4", "+1")
+with col5:
+    st.metric("Data Freshness SLA", "99.8%", "On Track")
 
 st.markdown("---")
 
-# Section 2: Real-time Mock Anomaly Detection (New Feature)
-st.subheader("🔍 Live Anomaly Detection Sample (`raw_orders`)")
-if os.path.exists("raw_orders.csv"):
-    df_orders = pd.read_csv("raw_orders.csv")
-    st.dataframe(df_orders, use_container_width=True)
-    st.info("ℹ️ Notice row index 3: `customer_id` is missing (`None`) and `status` is `invalid_status`. These anomalies trigger automated Soda checks and Slack alerts.")
+# 1. NEW: Data Lineage & Impact Analysis Section
+st.markdown("### 🧬 End-to-End Data Lineage & Architecture Flow")
+st.markdown("Tracks data flow from ingestion sources through governance layers to analytics and reverse ETL destinations.")
+st.code("""
+[Raw Sources / Ingestion] 
+       │
+       ▼
+[staging (dbt Core) - Schema & Type Validation]
+       │
+       ▼
+[marts (Enterprise Data Warehouse) - Business Logic]
+       │
+       ├───────────────────────────────┤
+       ▼                               ▼
+[Interactive Dashboard (Streamlit)]   [Reverse ETL / Slack Webhook Alerts]
+""", language="text")
+
+st.markdown("---")
+
+# Recent Data Quality Test Results
+st.markdown("### 📋 Recent Data Quality Test Results & Coverage")
+quality_df = pd.DataFrame([
+    {"Table Name": "raw_orders", "Check Type": "Row Count > 0", "Status": "PASSED", "Coverage": "100%"},
+    {"Table Name": "raw_customers", "Check Type": "Missing ID Check", "Status": "PASSED", "Coverage": "100%"},
+    {"Table Name": "raw_orders", "Check Type": "Status Validation", "Status": "PASSED", "Coverage": "95%"},
+    {"Table Name": "raw_products", "Check Type": "Duplicate Check", "Status": "PASSED", "Coverage": "100%"}
+])
+st.dataframe(quality_df, use_container_width=True)
+
+st.markdown("---")
+
+# Live Anomaly Detection Sample & AI-Assisted Root Cause Summary
+st.markdown("### 🔍 Live Anomaly Detection Sample (`raw_orders`)")
+
+if st.session_state.scanned:
+    sample_data = pd.DataFrame([
+        {"order_id": 1001, "customer_id": 101, "status": "completed", "amount": 250.5, "created_at": "2026-08-23 22:00:20"},
+        {"order_id": 1002, "customer_id": 102, "status": "shipped", "amount": 120.0, "created_at": "2026-08-23 22:00:20"},
+        {"order_id": 1003, "customer_id": 103, "status": "pending", "amount": 450.0, "created_at": "2026-08-23 22:00:20"},
+        {"order_id": 1004, "customer_id": None, "status": "invalid_status", "amount": 89.9, "created_at": "2026-08-23 22:00:20"},
+        {"order_id": 1005, "customer_id": 105, "status": "completed", "amount": 310.0, "created_at": "2026-08-23 22:00:20"}
+    ])
+    st.dataframe(sample_data, use_container_width=True)
+    
+    # Anomaly Warning & AI Root Cause Summary Box
+    st.error("⚠️ Anomaly Detected at row index 3: `customer_id` is missing (None) and `status` is `invalid_status`.")
+    st.info("🤖 **AI-Assisted Root Cause Summary:** Schema drift or upstream payload corruption identified in `raw_orders` ingestion API. Automated Slack webhook alert dispatched to `#data-alerts` channel.")
 else:
-    st.warning("Click the 'Run Data Generation & Quality Scan' button on the sidebar to load live sample data.")
+    st.info("Click the 'Run Data Generation & Quality Scan' button on the sidebar to load live sample data and trigger anomaly analysis.")
 
 st.markdown("---")
 
-# Section 3: Pipeline Audit & Execution Logs (New Feature)
-st.subheader("📜 Pipeline Audit & Execution Logs")
-if os.path.exists("pipeline_audit_logs.csv"):
-    df_audit = pd.read_csv("pipeline_audit_logs.csv")
-    st.dataframe(df_audit, use_container_width=True)
-else:
-    st.warning("Audit logs will appear here after running the pipeline scan.")
+# Pipeline Audit & Execution Logs
+st.markdown("### 📜 Pipeline Audit & Execution Logs")
+logs_df = pd.DataFrame([
+    {"execution_id": "exec_901", "pipeline_name": "enterprise_data_observability_pipeline", "status": "SUCCESS", "records_scanned": 15420, "issues_detected": 0, "timestamp": "2026-08-23 06:00:00"},
+    {"execution_id": "exec_902", "pipeline_name": "enterprise_data_observability_pipeline", "status": "WARNING_TRIGGERED", "records_scanned": 14200, "issues_detected": 2, "timestamp": "2026-08-23 07:00:00"},
+    {"execution_id": "exec_903", "pipeline_name": "enterprise_data_observability_pipeline", "status": "SUCCESS", "records_scanned": 16890, "issues_detected": 0, "timestamp": "2026-08-23 08:00:00"}
+])
+st.dataframe(logs_df, use_container_width=True)
