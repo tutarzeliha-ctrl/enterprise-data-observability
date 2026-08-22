@@ -64,3 +64,12 @@ Generate data and run the dashboard:
 Bash
 python generate_data.py
 streamlit run dashboard/app.py
+
+---
+
+## 🏛️ Architecture Decision Records (ADR) - Why These Tools?
+
+* **Apache Airflow:** Chosen for robust pipeline orchestration, dependency management, and production-grade scheduling capabilities.
+* **Declarative Quality Checks (`checks.yml`):** Implemented to separate validation rules from execution logic, ensuring maintainability and scalability across growing data models.
+* **Streamlit Cloud:** Utilized to provide lightweight, highly interactive, and zero-infra executive monitoring dashboards directly accessible via web browsers.
+* **GitHub Actions & Pytest:** Integrated to enforce continuous integration (CI) best practices, automated regression testing, and code quality governance on every pull request.
