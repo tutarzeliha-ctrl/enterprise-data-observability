@@ -1,5 +1,8 @@
 # Enterprise Data Governance, Quality Validation & Observability Pipeline
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
+
+
 A production-grade, end-to-end data governance and observability architecture designed to automate data quality checks, track execution pipelines, and trigger real-time anomaly alerts.
 
 ---
@@ -11,17 +14,6 @@ A production-grade, end-to-end data governance and observability architecture de
 * **Interactive Monitoring Dashboard:** Built with **Streamlit** to provide a real-time health score, active table metrics, and live execution audit logs.
 * **Automated Alerting Engine:** Simulates automated notifications via **Slack webhooks** upon data anomaly detection or pipeline warning triggers.
 * **Data Governance & Auditing:** Maintains comprehensive audit logs (`pipeline_audit_logs.csv`) recording execution statuses, record counts, and anomaly timestamps.
-
----
-
-## 📊 Live Streamlit Dashboard Preview
-
-The interactive Streamlit application provides a real-time command center for data engineers and stakeholders to monitor enterprise data health:
-* **System Health Score:** Dynamic tracking of pipeline success rates and anomaly indicators.
-* **Audit Trail & Logs:** Detailed queryable table of recent execution runs.
-* **Interactive Controls:** Trigger checks and review data quality metrics on the fly.
-
-*(If you deploy your Streamlit app to Streamlit Community Cloud, you can add your live link here!)*
 
 ---
 
