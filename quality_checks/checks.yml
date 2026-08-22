@@ -1,0 +1,11 @@
+checks for raw_orders:
+  - row_count > 0
+  - missing_count(order_id) = 0
+  - invalid_count(status) = 0:
+      valid values: ['completed', 'shipped', 'pending', 'cancelled']
+  - duplicate_count(order_id) = 0
+
+checks for raw_customers:
+  - row_count > 0
+  - missing_count(customer_id) = 0
+  - duplicate_count(customer_id) = 0

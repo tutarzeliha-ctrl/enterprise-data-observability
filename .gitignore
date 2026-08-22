@@ -1,0 +1,11 @@
+# Virtual Environment
+venv/
+__pycache__/
+*.pyc
+
+# Generated CSV Data
+raw_orders.csv
+pipeline_audit_logs.csv
+
+# Streamlit
+.streamlit/
