@@ -1,6 +1,6 @@
 # Enterprise Data Governance, Quality Validation & Observability Pipeline
 
-[![Open in Streamlit]([https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/](https://enterprise-data-observability-3jqvuelxyojj9rrakcncbw.streamlit.app/))
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://enterprise-data-observability-3jqvuelxyojj9rrakcncbw.streamlit.app/)
 
 
 A production-grade, end-to-end data governance and observability architecture designed to automate data quality checks, track execution pipelines, and trigger real-time anomaly alerts.
