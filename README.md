@@ -14,6 +14,17 @@ A production-grade, end-to-end data governance and observability architecture de
 
 ---
 
+## 📊 Live Streamlit Dashboard Preview
+
+The interactive Streamlit application provides a real-time command center for data engineers and stakeholders to monitor enterprise data health:
+* **System Health Score:** Dynamic tracking of pipeline success rates and anomaly indicators.
+* **Audit Trail & Logs:** Detailed queryable table of recent execution runs.
+* **Interactive Controls:** Trigger checks and review data quality metrics on the fly.
+
+*(If you deploy your Streamlit app to Streamlit Community Cloud, you can add your live link here!)*
+
+---
+
 ## 🛠️ Tech Stack
 
 * **Orchestration:** Apache Airflow
