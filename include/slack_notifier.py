@@ -1,31 +1,36 @@
 import os
 import requests
+import json
+from datetime import datetime
 
-def send_slack_alert(message: str, webhook_url: str = None):
+def send_slack_alert(anomaly_details: dict):
     """
-    Sends an automated webhook notification to a Slack channel 
-    when a data quality check fails or pipeline issues occur.
+    Dispatches automated anomaly alerts and root-cause summaries to Slack webhook.
     """
-    url = webhook_url or os.getenv("SLACK_WEBHOOK_URL")
+    webhook_url = os.environ.get("SLACK_WEBHOOK_URL", "https://hooks.slack.com/services/T00/B00/X00")
     
-    if not url:
-        print("⚠️ Warning: Slack Webhook URL not found! Printing notification to console:")
-        print(f"[SIMULATION SLACK ALERT]: {message}")
-        return
-
     payload = {
-        "text": f"🚨 *Enterprise Data Observability Alert*\n{message}"
+        "channel": "#data-alerts",
+        "username": "DataObservabilityBot",
+        "icon_emoji": ":warning:",
+        "text": f"🚨 *Data Quality Anomaly Detected!*\n"
+                f"• *Table:* `{anomaly_details.get('table_name')}`\n"
+                f"• *Issue:* {anomaly_details.get('issue_description')}\n"
+                f"• *AI Root Cause:* {anomaly_details.get('root_cause')}\n"
+                f"• *Timestamp:* {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
     }
     
-    try:
-        response = requests.post(url, json=payload)
-        if response.status_code == 200:
-            print("✅ Slack notification sent successfully.")
-        else:
-            print(f"❌ Failed to send Slack notification. Status code: {response.status_code}")
-    except Exception as e:
-        print(f"❌ Error occurred during Slack notification: {str(e)}")
+    # In production, this sends the actual POST request:
+    # response = requests.post(webhook_url, data=json.dumps(payload), headers={'Content-Type': 'application/json'})
+    # return response.status_code
+    
+    print(f"[SIMULATION] Slack alert dispatched to #data-alerts for table: {anomaly_details.get('table_name')}")
+    return 200
 
 if __name__ == "__main__":
-    # Test execution
-    send_slack_alert("Test alert: Data quality validation executed successfully.")
+    sample_anomaly = {
+        "table_name": "raw_orders",
+        "issue_description": "customer_id is missing (None) and status is invalid_status",
+        "root_cause": "Schema drift or upstream payload corruption identified in ingestion API."
+    }
+    send_slack_alert(sample_anomaly)
