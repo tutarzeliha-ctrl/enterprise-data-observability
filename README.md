@@ -2,7 +2,6 @@
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://enterprise-data-observability-3jqvuelxyojj9rrakcncbw.streamlit.app/)
 
-
 A production-grade, end-to-end data governance and observability architecture designed to automate data quality checks, track execution pipelines, and trigger real-time anomaly alerts.
 
 ---
@@ -43,7 +42,6 @@ enterprise-data-observability/
 ├── .gitignore                      # Git exclusion rules for virtual environments and logs
 ├── generate_data.py                # Synthetic data generator script simulating anomalies
 └── requirements.txt                # Python dependencies and package requirements
-
 ⚙️ Quick Start & Installation
 Clone the repository:
 
@@ -64,21 +62,27 @@ Generate data and run the dashboard:
 Bash
 python generate_data.py
 streamlit run dashboard/app.py
+🏛️ Architecture Decision Records (ADR) - Why These Tools?
+Apache Airflow: Chosen for robust pipeline orchestration, dependency management, and production-grade scheduling capabilities.
 
----
+Declarative Quality Checks (checks.yml): Implemented to separate validation rules from execution logic, ensuring maintainability and scalability across growing data models.
 
-## 🏛️ Architecture Decision Records (ADR) - Why These Tools?
+Streamlit Cloud: Utilized to provide lightweight, highly interactive, and zero-infra executive monitoring dashboards directly accessible via web browsers.
 
-* **Apache Airflow:** Chosen for robust pipeline orchestration, dependency management, and production-grade scheduling capabilities.
-* **Declarative Quality Checks (`checks.yml`):** Implemented to separate validation rules from execution logic, ensuring maintainability and scalability across growing data models.
-* **Streamlit Cloud:** Utilized to provide lightweight, highly interactive, and zero-infra executive monitoring dashboards directly accessible via web browsers.
-* **GitHub Actions & Pytest:** Integrated to enforce continuous integration (CI) best practices, automated regression testing, and code quality governance on every pull request.
+GitHub Actions & Pytest: Integrated to enforce continuous integration (CI) best practices, automated regression testing, and code quality governance on every pull request.
 
----
+🤖 AI-Powered Exploratory Analytics Layer (Julius AI)
+In addition to programmatic data quality checks and executive dashboards, the architecture includes an AI-Driven Ad-Hoc Analytics Layer integrated with Julius AI:
 
-## 🤖 AI-Powered Exploratory Analytics Layer (Julius AI)
+Natural Language Queries: Allows stakeholders and data analysts to query processed data warehouse tables using plain English without writing complex SQL.
 
-In addition to programmatic data quality checks and executive dashboards, the architecture includes an **AI-Driven Ad-Hoc Analytics Layer** integrated with **Julius AI**:
-* **Natural Language Queries:** Allows stakeholders and data analysts to query processed data warehouse tables using plain English without writing complex SQL.
-* **Automated Data Exploration:** Generates instant exploratory charts, statistical summaries, and automated anomaly forecasting on top of our dbt-modeled datasets.
-* **Collaborative Insights:** Streamlines ad-hoc reporting workflows by bridging the gap between raw data pipelines and executive business intelligence.
+Automated Data Exploration: Generates instant exploratory charts, statistical summaries, and automated anomaly forecasting on top of our datasets.
+
+Collaborative Insights: Streamlines ad-hoc reporting workflows by bridging the gap between raw data pipelines and executive business intelligence.
+
+🚨 Production Incident Response Playbook
+Detection: Automated checks.yml rules catch null spikes or schema drifts, triggering the Airflow failure callback.
+
+Notification: Slack webhook instantly broadcasts payload metadata to the engineering channel.
+
+Resolution & Audit: The Streamlit observability dashboard displays the exact broken contract, allowing immediate rollback or quarantine isolation logged into pipeline_audit_logs.csv.
