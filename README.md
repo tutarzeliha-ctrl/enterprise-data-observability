@@ -12,12 +12,6 @@
 =======
 > 🚀 **Live Demo:** [Streamlit App Linki Buraya]  
 > *(Note: The app runs on Streamlit Community Cloud and may go to sleep due to inactivity. If you see a "Zzzz" screen, simply click the **"Yes, get this app back up!"** button to wake it up instantly!)*
->>>>>>> temp-work
-
->>>>>>> f71194e (Enhance README with live demo information)
-A production-grade, end-to-end data governance and observability architecture designed to automate data quality checks, track execution pipelines, and trigger real-time anomaly alerts.
-
----
 
 ## 📌 Executive Summary & Architecture
 
