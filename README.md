@@ -20,7 +20,20 @@ This project addresses these fundamental enterprise needs through a production-g
                                          │
                                          ├──> [ Streamlit Health Dashboard ]
                                          └──> [ Real-time Slack Webhook Alerts ]
-🛠️ Key Technical FeaturesAutomated Data Quality Validation: Declarative SQL & Python rules verifying null rates, schema integrity, and distribution shifts.Orchestration & Workflow Management: Robust Apache Airflow DAG execution with custom retry policies, dependency management, and automated logging.Real-time Observability & Governance: Streamlit-powered dashboard tracking pipeline telemetry, SLA compliance, and system-wide health metrics.Automated Incident Notification: Immediate webhook dispatches to Slack channels upon data quality threshold violations.Auditability & Traceability: Immutable logging of all pipeline execution traces and data validation outcomes for compliance audit trails.📁 Project StructurePlaintextenterprise-data-observability/
+🛠️ Key Technical Features
+Automated Data Quality Validation: Declarative SQL & Python rules verifying null rates, schema integrity, and distribution shifts.
+
+Orchestration & Workflow Management: Robust Apache Airflow DAG execution with custom retry policies, dependency management, and automated logging.
+
+Real-time Observability & Governance: Streamlit-powered dashboard tracking pipeline telemetry, SLA compliance, and system-wide health metrics.
+
+Automated Incident Notification: Immediate webhook dispatches to Slack channels upon data quality threshold violations.
+
+Auditability & Traceability: Immutable logging of all pipeline execution traces and data validation outcomes for compliance audit trails.
+
+📁 Project Structure
+Plaintext
+enterprise-data-observability/
 ├── dags/
 │   └── data_pipeline_dag.py        # Airflow DAG defining pipeline tasks and orchestration
 ├── dashboard/
@@ -32,26 +45,33 @@ This project addresses these fundamental enterprise needs through a production-g
 ├── generate_data.py                # Synthetic data generator script simulating anomalies
 ├── requirements.txt                # Python dependencies and package requirements
 └── README.md                       # Project documentation
-🚀 Quick Start & InstallationClone the repository:Bashgit clone [https://github.com/tutarzeliha-ctrl/enterprise-data-observability.git](https://github.com/tutarzeliha-ctrl/enterprise-data-observability.git)
+🚀 Quick Start & Installation
+Clone the repository:
+
+Bash
+git clone [https://github.com/tutarzeliha-ctrl/enterprise-data-observability.git](https://github.com/tutarzeliha-ctrl/enterprise-data-observability.git)
 cd enterprise-data-observability
-Create and activate a virtual environment:Bashpython -m venv venv
+Create and activate a virtual environment:
+
+Bash
+python -m venv venv
 # On Windows:
 venv\Scripts\activate
 # On macOS/Linux:
 source venv/bin/activate
-Install dependencies:Bashpip install -r requirements.txt
-Run synthetic data generator:Bashpython generate_data.py
-Launch Streamlit Dashboard:Bashstreamlit run dashboard/app.py
-🎯 Business Impact99.9% Pipeline Reliability: Proactively catches data corruption and schema drift before impacting downstream BI consumers.Zero Blind Spots: Provides complete visibility into data health, compute efficiency, and operational SLAs across the enterprise data stack.
----
+Install dependencies:
 
-### Hemen Uygulayalım:
+Bash
+pip install -r requirements.txt
+Run synthetic data generator:
 
-1. VS Code'da `README.md` dosyasındaki her şeyi seçip sil (`Ctrl + A` -> `Delete`).
-2. Yukarıdaki temiz kodu yapıştır ve kaydet (`Ctrl + S`).
-3. Terminalde şu komutları sırasıyla yazıp çalıştır:
-   ```bash
-   git add README.md
-   git commit -m "fix: close architecture code block properly"
-   git push origin main
-Sayfayı yenilediğinde o büyük gri kutu düzelecek ve tüm başlıklar yerli yerine oturacak!
+Bash
+python generate_data.py
+Launch Streamlit Dashboard:
+
+Bash
+streamlit run dashboard/app.py
+🎯 Business Impact
+99.9% Pipeline Reliability: Proactively catches data corruption and schema drift before impacting downstream BI consumers.
+
+Zero Blind Spots: Provides complete visibility into data health, compute efficiency, and operational SLAs across the enterprise data stack.
