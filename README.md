@@ -43,3 +43,15 @@ Install dependencies:Bashpip install -r requirements.txt
 Run synthetic data generator:Bashpython generate_data.py
 Launch Streamlit Dashboard:Bashstreamlit run dashboard/app.py
 🎯 Business Impact99.9% Pipeline Reliability: Proactively catches data corruption and schema drift before impacting downstream BI consumers.Zero Blind Spots: Provides complete visibility into data health, compute efficiency, and operational SLAs across the enterprise data stack.
+---
+
+### Hemen Uygulayalım:
+
+1. VS Code'da `README.md` dosyasındaki her şeyi seçip sil (`Ctrl + A` -> `Delete`).
+2. Yukarıdaki temiz kodu yapıştır ve kaydet (`Ctrl + S`).
+3. Terminalde şu komutları sırasıyla yazıp çalıştır:
+   ```bash
+   git add README.md
+   git commit -m "fix: close architecture code block properly"
+   git push origin main
+Sayfayı yenilediğinde o büyük gri kutu düzelecek ve tüm başlıklar yerli yerine oturacak!
